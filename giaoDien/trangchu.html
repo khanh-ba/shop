@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport tối ưu Mobile-first -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gợi Ý Hôm Nay - Siêu Sàn Tiếp Thị Liên Kết</title>
+
+    <!-- Phông chữ hiện đại Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES (HỆ THỐNG MÀU SẮC CHUẨN SÀN THƯƠNG MẠI ĐIỆN TỬ)
+           ========================================================================== */
+        :root {
+            --primary-red: #ee4d2d;
+            /* Màu cam đỏ đặc trưng Shopee / Lazada */
+            --bg-page: #f5f5f5;
+            /* Nền xám nhạt toàn trang */
+            --bg-card: #ffffff;
+            /* Nền trắng tinh của từng thẻ sản phẩm */
+            --text-title: #222222;
+            /* Màu chữ đen tiêu đề */
+            --text-gray: #757575;
+            /* Màu xám nhạt cho lượt bán, shop */
+            --price-red: #ee4d2d;
+            /* Màu đỏ nổi bật cho giá bán */
+            --discount-bg: #ffe97a;
+            /* Màu vàng nền nhãn giảm giá */
+            --discount-text: #eb1700;
+            /* Màu chữ đỏ cho phần trăm giảm giá */
+            --badge-teal: #00b59c;
+            /* Màu xanh ngọc cho nhãn Freeship */
+            --badge-teal-bg: rgba(0, 181, 156, 0.08);
+            /* Nền mờ cho nhãn Freeship */
+            --star-gold: #ffbe00;
+            /* Màu vàng của ngôi sao đánh giá */
+            --border-light: #f0f0f0;
+            /* Viền mờ ngăn cách */
+            --card-radius: 4px;
+            /* Bo góc nhẹ thẻ sản phẩm */
+        }
+
+        /* ==========================================================================
+           2. RESET CSS CƠ BẢN
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            /* Bỏ viền xanh khi chạm trên di động */
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-title);
+            line-height: 1.4;
+            padding-bottom: 30px;
+        }
+
+        /* Khung bao ngoài tối ưu Mobile-first (trên PC sẽ căn giữa gọn gàng) */
+        .page-container {
+            width: 100%;
+            max-width: 480px;
+            /* Chuẩn chiều rộng smartphone */
+            margin: 0 auto;
+            background-color: var(--bg-page);
+            min-height: 100vh;
+        }
+
+        /* ==========================================================================
+           3. HEADER TAB "GỢI Ý HÔM NAY" (PHONG CÁCH SÀN TMĐT)
+           ========================================================================== */
+        .section-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #ffffff;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--primary-red);
+            letter-spacing: 0.3px;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-red);
+        }
+
+        .section-subtitle {
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           4. CSS GRID: CHIA 2 CỘT ĐỀU NHAU (REQUIREMENT 1)
+           ========================================================================== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 cột bằng nhau */
+            gap: 8px;
+            /* Khoảng cách giữa các cột và hàng: 8px */
+            padding: 8px;
+            /* Khoảng cách mép màn hình */
+        }
+
+        /* ==========================================================================
+           5. CHI TIẾT THẺ SẢN PHẨM PRODUCT CARD (REQUIREMENT 2)
+           ========================================================================== */
+        .product-card {
+            background-color: var(--bg-card);
+            /* Nền trắng tách biệt với nền xám */
+            border-radius: var(--card-radius);
+            /* Bo góc rất nhẹ 4px */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            /* Bỏ gạch chân thẻ <a> */
+            color: inherit;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            /* Bóng đổ siêu nhẹ tạo độ nổi khối */
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        /* Hiệu ứng khi rê chuột hoặc bấm */
+        .product-card:active {
+            transform: scale(0.985);
+        }
+
+        /* 5.1. Khung chứa ảnh tỷ lệ vuông 1:1 */
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            /* Tỷ lệ vuông chuẩn 1:1 */
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ảnh đầy khung không bị méo */
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .card-img {
+            transform: scale(1.03);
+            /* Phóng to ảnh nhẹ khi hover */
+        }
+
+        /* Nhãn giảm giá ở góc trên cùng bên phải */
+        .badge-discount {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--discount-bg);
+            color: var(--discount-text);
+            padding: 3px 5px;
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1;
+            text-align: center;
+            border-bottom-left-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Dải nhãn hiệu ứng nằm sát mép dưới của ảnh (ví dụ XTRA Freeship) */
+        .badge-bottom-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #ee4d2d 0%, #ff7337 100%);
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 5.2. Phần nội dung thông tin thẻ sản phẩm */
+        .card-body {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Tiêu đề sản phẩm: Giới hạn tối đa 2 dòng kèm dấu 3 chấm */
+        .product-title {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.35;
+            margin-bottom: 6px;
+
+            /* CSS Cắt chữ 2 dòng */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 34px;
+            /* Giữ các card thẳng hàng đều nhau */
+        }
+
+        /* Cụm Giá & Lượt bán */
+        .price-sold-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            gap: 4px;
+        }
+
+        .price-amount {
+            color: var(--price-red);
+            font-size: 15.5px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .price-currency {
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 1px;
+        }
+
+        .sold-count {
+            font-size: 10.5px;
+            color: var(--text-gray);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        /* Cụm Đánh giá sao & Nhãn vận chuyển */
+        .rating-shipping-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .rating-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #333333;
+        }
+
+        .rating-star-icon {
+            width: 11px;
+            height: 11px;
+            fill: var(--star-gold);
+        }
+
+        .shipping-tag {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--badge-teal);
+            background-color: var(--badge-teal-bg);
+            border: 0.8px solid rgba(0, 181, 156, 0.4);
+            padding: 1px 4px;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        /* Nút Mua trên TikTok ở cuối mỗi thẻ sản phẩm */
+        .btn-buy-tiktok {
+            margin-top: auto;
+            /* Đẩy nút sát đáy thẻ */
+            width: 100%;
+            height: 32px;
+            background: linear-gradient(135deg, #FE2C55 0%, #FF0050 100%);
+            /* Đỏ hồng đặc trưng TikTok */
+            color: #ffffff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 6px rgba(254, 44, 85, 0.25);
+            transition: all 0.15s ease;
+        }
+
+        .product-card:hover .btn-buy-tiktok {
+            box-shadow: 0 3px 10px rgba(254, 44, 85, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .product-card:active .btn-buy-tiktok {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+
+        .btn-buy-tiktok svg {
+            width: 13px;
+            height: 13px;
+            fill: #ffffff;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-container">
+        <!-- Thanh tiêu đề chuyên nghiệp phong cách Shopee / Lazada -->
+        <header class="section-header">
+            <div class="section-title">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z" />
+                </svg>
+                <span>Gợi Ý Hôm Nay</span>
+            </div>
+            <div class="section-subtitle">Siêu Sale 50%</div>
+        </header>
+
+        <!-- Nơi JavaScript sẽ tự động render mảng sản phẩm vào -->
+        <main class="product-grid" id="productGrid"></main>
+    </div>
+
+    <!-- ==========================================================================
+       6. JAVASCRIPT: DỮ LIỆU SẢN PHẨM & TỰ ĐỘNG RENDER RA MÀN HÌNH (REQUIREMENT 3)
+       ========================================================================== -->
+    <script>
+        /**
+         * MẢNG CHỨA DANH SÁCH 6 SẢN PHẨM MẪU (ARRAY OF OBJECTS)
+         * Bạn có thể dễ dàng bổ sung hoặc chỉnh sửa link affiliate, tên, giá bán...
+         */
+        const products = [
+            {
+                id: 1,
+                name: "Áo Polo Nam Cổ Bẻ Dệt Kim Vải Cotton Co Giãn Thoáng Khí Form Regular",
+                image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=80",
+                price: "189.000",
+                discount: "-39%",
+                rating: "4.9",
+                sold: "Đã bán 100k",
+                bannerBottom: "XTRA Freeship",
+                shippingTag: "Nhanh 24h free",
+                shopName: "Coolmate Official",
+                shopAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx1/"
+            },
+            {
+                id: 2,
+                name: "Quần Jean Nam Nữ Ống Rộng Streetwear Unisex Vải Denim Dày Dặn Tôn Dáng",
+                image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&auto=format&fit=crop&q=80",
+                price: "245.000",
+                discount: "-28%",
+                rating: "4.8",
+                sold: "Đã bán 25.4k",
+                bannerBottom: "Rẻ Vô Địch",
+                shippingTag: "Freeship Xtra",
+                shopName: "Street Style VN",
+                shopAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx2/"
+            },
+            {
+                id: 3,
+                name: "Đầm Nữ Dáng Suông Phối Hoa Nhí Cổ V Vintage Thanh Lịch Sang Chảnh",
+                image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop&q=80",
+                price: "219.000",
+                discount: "-42%",
+                rating: "5.0",
+                sold: "Đã bán 48.9k",
+                bannerBottom: "XTRA Freeship",
+                shippingTag: "Nhanh 24h free",
+                shopName: "Gumac Fashion",
+                shopAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx3/"
+            },
+            {
+                id: 4,
+                name: "Áo Blazer Nữ Form Rộng 2 Lớp Phong Cách Hàn Quốc Cao Cấp Tôn Dáng",
+                image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&auto=format&fit=crop&q=80",
+                price: "349.000",
+                discount: "-35%",
+                rating: "4.8",
+                sold: "Đã bán 12.3k",
+                bannerBottom: "Voucher 50K",
+                shippingTag: "Freeship Xtra",
+                shopName: "Chic Minimalist",
+                shopAvatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx4/"
+            },
+            {
+                id: 5,
+                name: "Giày Sneaker Thể Thao Cổ Thấp Phối Màu Retro Đế Cao 4cm Siêu Êm",
+                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&auto=format&fit=crop&q=80",
+                price: "320.000",
+                discount: "-30%",
+                rating: "4.9",
+                sold: "Đã bán 86.1k",
+                bannerBottom: "XTRA Freeship",
+                shippingTag: "Nhanh 24h free",
+                shopName: "Sneaker Hub",
+                shopAvatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx5/"
+            },
+            {
+                id: 6,
+                name: "Túi Xách Nữ Kẹp Nách Da PU Mềm Cao Cấp Khóa Bạc Thời Trang Đi Tiệc Đi Chơi",
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=80",
+                price: "199.000",
+                discount: "-50%",
+                rating: "4.9",
+                sold: "Đã bán 32.7k",
+                bannerBottom: "Deal 0Đ Kèm",
+                shippingTag: "Freeship Xtra",
+                shopName: "Ladata Leather",
+                shopAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&auto=format&fit=crop&q=80",
+                affiliateLink: "https://vt.tiktok.com/ZS6Mxxx6/"
+            }
+        ];
+
+        // Lấy thẻ container của lưới sản phẩm
+        const gridContainer = document.getElementById('productGrid');
+
+        /**
+         * HÀM RENDER DANH SÁCH SẢN PHẨM
+         * Duyệt mảng `products` và tạo các khối thẻ <a> HTML tương ứng
+         */
+        function renderProducts() {
+            // Dùng map() tạo mảng các chuỗi HTML rồi nối lại bằng join('')
+            const cardsHTML = products.map(item => `
+                <a href="${item.affiliateLink}" target="_blank" rel="noopener noreferrer" class="product-card" aria-label="${item.name}">
+                    
+                    <!-- 1. Cụm ảnh vuông 1:1 kèm nhãn giảm giá và dải banner dưới ảnh -->
+                    <div class="card-img-wrapper">
+                        <img class="card-img" src="${item.image}" alt="${item.name}" loading="lazy" decoding="async">
+                        
+                        <!-- Nhãn giảm giá góc trên cùng bên phải -->
+                        <div class="badge-discount">${item.discount}</div>
+                        
+                        <!-- Dải banner sát mép dưới của bức ảnh -->
+                        <div class="badge-bottom-banner">
+                            <span>⚡ ${item.bannerBottom}</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Phần nội dung thông tin của thẻ -->
+                    <div class="card-body">
+                        
+                        <!-- Tiêu đề sản phẩm giới hạn 2 dòng chữ -->
+                        <h3 class="product-title">${item.name}</h3>
+
+                        <!-- Cụm Giá tiền & Lượt bán -->
+                        <div class="price-sold-row">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>${item.price}
+                            </div>
+                            <div class="sold-count">${item.sold}</div>
+                        </div>
+
+                        <!-- Cụm Đánh giá sao & Vận chuyển -->
+                        <div class="rating-shipping-row">
+                            <div class="rating-box">
+                                <!-- SVG Ngôi sao vàng -->
+                                <svg class="rating-star-icon" viewBox="0 0 24 24">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                </svg>
+                                <span>${item.rating}</span>
+                            </div>
+                            <!-- Nhãn vận chuyển màu xanh ngọc -->
+                            <div class="shipping-tag">${item.shippingTag}</div>
+                        </div>
+
+                        <!-- Nút Mua trên TikTok Shop -->
+                        <div class="btn-buy-tiktok">
+                            <!-- SVG Icon TikTok -->
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .57.04.84.11V9.4a6.33 6.33 0 0 0-.84-.05A6.34 6.34 0 0 0 3 15.69a6.34 6.34 0 0 0 10.82 4.47 6.29 6.29 0 0 0 1.95-4.49V8.42c1.37.98 3.05 1.56 4.87 1.56V6.69c-.35 0-.7-.05-1.05-.15z"/>
+                            </svg>
+                            <span>Mua trên TikTok</span>
+                        </div>
+
+                    </div>
+                </a>
+            `).join('');
+
+            // Gán chuỗi HTML vừa sinh vào trong thẻ grid
+            gridContainer.innerHTML = cardsHTML;
+        }
+
+        // Thực thi hàm render khi tài liệu đã sẵn sàng
+        renderProducts();
+    </script>
+</body>
+
+</html>
